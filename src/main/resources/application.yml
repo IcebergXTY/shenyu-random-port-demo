@@ -1,0 +1,39 @@
+server:
+  port: 0
+
+spring:
+  application:
+    name: shenyu-demo
+
+management:
+  health:
+    defaults:
+      enabled: false
+
+shenyu:
+  register:
+    register-type: zookeeper
+    server-lists: ubuntu-vmware:2182
+  client:
+    dubbo:
+      props:
+        contextPath: /dubbo
+        appName: ${spring.application.name}
+    websocket:
+      props:
+        contextPath: /ws-annotation
+        appName: ${spring.application.name}
+        port: 0
+    http:
+      props:
+        contextPath: /http
+        appName: ${spring.application.name}
+
+dubbo:
+  application:
+    name: ${spring.application.name}
+  protocol:
+    name: dubbo
+    port: -1
+  registry:
+    address: "zookeeper://ubuntu-vmware:2182"
